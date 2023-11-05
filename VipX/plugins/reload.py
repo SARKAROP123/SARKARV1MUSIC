@@ -2,16 +2,28 @@ import asyncio
 
 from pyrogram import filters
 from pyrogram.types import CallbackQuery, Message
+from pyrogram import Client, filters
+import requests
+import random
+import re
+import sys
+from os import getenv
+from VipX.misc import SUDOERS
+from pyrogram import Client, filters
+import requests
+import random
+import re
+import sys
+from os import getenv
 
-from config import BANNED_USERS, MUSIC_BOT_NAME, adminlist, lyrical
-from strings import get_command
+from dotenv import load_dotenv
+from pyrogram import filters
+import asyncio
+import time
 from VipX import app
-from VipX.sys
-from VipX.misc import db
-from VipX.utils.database import get_authuser_names, get_cmode
-from VipX.utils.decorators import (ActualAdminCB, AdminActual,
-                                         language)
-from VipX.utils.formatters import alpha_to_int
+import config
+
+from config import BOT_TOKEN, OWNER_ID
 
 ### Multi-Lang Commands
 RELOAD_COMMAND = get_command("RELOAD_COMMAND")
