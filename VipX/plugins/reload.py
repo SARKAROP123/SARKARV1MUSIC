@@ -6,7 +6,7 @@ from pyrogram.types import CallbackQuery, Message
 from config import BANNED_USERS, MUSIC_BOT_NAME, adminlist, lyrical
 from strings import get_command
 from VipX import app
-from VipX.core.call import Anon
+from VipX.sys
 from VipX.misc import db
 from VipX.utils.database import get_authuser_names, get_cmode
 from VipX.utils.decorators import (ActualAdminCB, AdminActual,
