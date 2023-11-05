@@ -58,7 +58,7 @@ SHAYRI_COMMAND = get_command("SHAYRI_COMMAND")
 @app.on_message(
     filters.command(SHAYRI_COMMAND)
     & filters.group
-    )
+    & ~filters.edited & filters.group & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
         text = random.choice(SHAYRI),
@@ -66,11 +66,8 @@ async def help(client: Client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "✨𝚂𝚄𝙿𝙿𝙾𝚁𝚃✨", url=f"https://t.me/TG_FRIENDSS"),
-                    InlineKeyboardButton(
-                        "✨𝙾𝙵𝙵𝙸𝙲𝙴✨", url=f"https://t.me/VIP_CREATORS")
-                    
-                ]
+                        "✨𝐒υρρσɾ𝐓✨", url=f"https://t.me/TKS_JOIN"),
+                     ]
             ]
         ),
     )
@@ -78,7 +75,7 @@ async def help(client: Client, message: Message):
 @app.on_message(
     filters.command(SHAYRI_COMMAND)
     & filters.private
-    )
+    & ~filters.edited & filters.private & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
         text = random.choice(SHAYRI),
@@ -86,11 +83,8 @@ async def help(client: Client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "✨𝚂𝚄𝙿𝙿𝙾𝚁𝚃✨", url=f"https://t.me/TG_FRIENDSS"),
-                    InlineKeyboardButton(
-                        "✨𝙾𝙵𝙵𝙸𝙲𝙴✨", url=f"https://t.me/VIP_CREATORS")
-                    
-                ]
+                        "💘𝐂ԋαɳɳҽ𝐋💘", url=f"https://t.me/TKS_JOIN"),
+                     ]
             ]
         ),
-    )
+)
